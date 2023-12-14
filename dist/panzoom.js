@@ -751,7 +751,6 @@ function createPanZoom(domElement, options) {
     //   options.onClick(e);
     // }, doubleTapSpeedInMS);
 
-    if (panstartFired) return;
     options.onClick(e);
   }
 
