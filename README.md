@@ -4,16 +4,14 @@ Extensible, mobile friendly pan and zoom framework (supports DOM and SVG).
 
 # Demo
 
- * [Regular DOM object](https://anvaka.github.io/panzoom/demo/dom.html)
- * [Standalone page](https://anvaka.github.io/panzoom/demo/index.html) - this repository
- * [SVG Tiger](https://jsfiddle.net/anvaka/9twnb7zr/) - js fiddle
+ * [SVG Tiger](https://jsfiddle.net/sagarprince/2kdtr9ze/) - js fiddle
 
 # Usage
 
 Grab it from npm and use with your favorite bundler:
 
 ```
-npm install panzoom --save
+npm install panzoomify --save
 ```
 
 If you download from CDN the library will be available under `panzoom` global name.
