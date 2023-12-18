@@ -1,9 +1,9 @@
 # panzoomify
 Extensible, mobile friendly pan and zoom framework (supports DOM and SVG).
 
-# Demo
+# Demos
 
- * [SVG Tiger](https://jsfiddle.net/sagarprince/2kdtr9ze/) - js fiddle
+ * Find all demos under demo directory.
 
 # Usage
 
@@ -101,8 +101,6 @@ instance.on('transform', function(e) {
 });
 ```
 
-See [JSFiddle](https://jsfiddle.net/uwxcmbyg/609/) console for a demo.
-
 ## Ignore mouse wheel
 
 Sometimes zooming interferes with scrolling. If you want to alleviate it you
@@ -118,10 +116,6 @@ panzoomify(element, {
   }
 });
 ```
-
-See [JSFiddle](https://jsfiddle.net/Laxq9jLu/) for the demo. The tiger will be
-zoomable only when `Alt` key is down.
-
 
 ## Ignore mouse down
 
