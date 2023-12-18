@@ -1,4 +1,4 @@
-declare module "panzoom" {
+declare module "panzoomify" {
   interface Bounds {
     left: number;
     top: number;

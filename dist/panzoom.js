@@ -746,11 +746,6 @@ function createPanZoom(domElement, options) {
     var l = Math.sqrt(dx * dx + dy * dy);
     if (l > 5) return; // probably they are panning, ignore it
 
-    // pendingClickEventTimeout = setTimeout(function () {
-    //   pendingClickEventTimeout = 0;
-    //   options.onClick(e);
-    // }, doubleTapSpeedInMS);
-
     options.onClick(e);
   }
 
@@ -1058,79 +1053,6 @@ function rigidScroll() {
     cancel: noop,
   };
 }
-
-function autoRun() {
-  if (typeof document === "undefined") return;
-
-  var scripts = document.getElementsByTagName("script");
-  if (!scripts) return;
-  var panzoomScript;
-
-  for (var i = 0; i < scripts.length; ++i) {
-    var x = scripts[i];
-    if (x.src && x.src.match(/\bpanzoom(\.min)?\.js/)) {
-      panzoomScript = x;
-      break;
-    }
-  }
-
-  if (!panzoomScript) return;
-
-  var query = panzoomScript.getAttribute("query");
-  if (!query) return;
-
-  var globalName = panzoomScript.getAttribute("name") || "pz";
-  var started = Date.now();
-
-  tryAttach();
-
-  function tryAttach() {
-    var el = document.querySelector(query);
-    if (!el) {
-      var now = Date.now();
-      var elapsed = now - started;
-      if (elapsed < 2000) {
-        // Let's wait a bit
-        setTimeout(tryAttach, 100);
-        return;
-      }
-      // If we don't attach within 2 seconds to the target element, consider it a failure
-      console.error("Cannot find the panzoom element", globalName);
-      return;
-    }
-    var options = collectOptions(panzoomScript);
-    console.log(options);
-    window[globalName] = createPanZoom(el, options);
-  }
-
-  function collectOptions(script) {
-    var attrs = script.attributes;
-    var options = {};
-    for (var j = 0; j < attrs.length; ++j) {
-      var attr = attrs[j];
-      var nameValue = getPanzoomAttributeNameValue(attr);
-      if (nameValue) {
-        options[nameValue.name] = nameValue.value;
-      }
-    }
-
-    return options;
-  }
-
-  function getPanzoomAttributeNameValue(attr) {
-    if (!attr.name) return;
-    var isPanZoomAttribute =
-      attr.name[0] === "p" && attr.name[1] === "z" && attr.name[2] === "-";
-
-    if (!isPanZoomAttribute) return;
-
-    var name = attr.name.substr(3);
-    var value = JSON.parse(attr.value);
-    return { name: name, value: value };
-  }
-}
-
-autoRun();
 
 },{"./lib/kinetic.js":2,"./lib/makeDomController.js":3,"./lib/makeSvgController.js":4,"./lib/makeTextSelectionInterceptor.js":5,"./lib/transform.js":6,"amator":7,"ngraph.events":9,"wheel":10}],2:[function(require,module,exports){
 /**

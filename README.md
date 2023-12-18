@@ -16,12 +16,6 @@ Grab it from npm and use with your favorite bundler:
 npm install panzoom --save
 ```
 
-Or download from CDN:
-
-``` html
-<script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
-```
-
 If you download from CDN the library will be available under `panzoom` global name.
 
 ## Pan and zoom DOM subtree
@@ -31,7 +25,7 @@ If you download from CDN the library will be available under `panzoom` global na
 var element = document.querySelector('#scene')
 
 // And pass it to panzoom
-panzoom(element)
+panzoomify(element)
 ```
 
 ## SVG panzoom example
@@ -286,36 +280,6 @@ instance.resume();   //  Resume panzoom
 instance.isPaused(); //  returns false again
 ```
 
-## Script attachment
-
-If you want to quickly play with panzoom without using javascript, you can configure it via
-`script` tag:
-
-``` html
-<!-- this is your html file -->
-<!DOCTYPE html>
-<html>
-<head>
-  <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'
-    query='#scene' name='pz'></script>
-</head>
-<body>
-  <svg>
-    <!-- this is the draggable root -->
-    <g id='scene'> 
-      <circle cx='10' cy='10' r='5' fill='pink'></circle>
-    </g>
-  </svg>
-</body>
-</html>
-```
-
-Most importantly, you can see `query` attribute that points to CSS selector. Once the element is found 
-panzoom is attached to this element. The controller will become available under `window.pz` name. And you
-can pass additional options to the panzoom via attributes prefixed with `pz-`.
-
-Here is a demo: [Script based attributes](https://anvaka.github.io/panzoom/demo/attach-via-script.html)
-
 ## Adjust Double Click Zoom
 
 You can adjust the double click zoom multiplier, by passing optional `zoomDoubleClickSpeed` argument.
@@ -421,15 +385,6 @@ To zoom in a smooth way use `smoothZoom(<number>,<number>,<number>)`:
 ``` js
 instance.smoothZoom(0, 0, 0.5);
 ```
-
-## Custom UI to trigger zoom
-
-One of the common use case is to have a custom UI to trigger zoom. For example, you can use a button to zoom in/out.
-Since this library does not depend on any popular framework (react, vue, etc.) you can implement it yourself
-following this example:
-
-* [Live demo](https://anvaka.github.io/panzoom/demo/buttons.html)
-* [Source code of the demo](https://github.com/anvaka/panzoom/blob/3731bff2e15f2b4299405c2a59a24f30c3549a17/demo/buttons.html#L851)
 
 # license
 
