@@ -1,5 +1,4 @@
-# panzoomify [![build status](https://github.com/anvaka/panzoom/actions/workflows/tests.yaml/badge.svg)](https://github.com/anvaka/panzoom/actions/workflows/tests.yaml)
-
+# panzoomify
 Extensible, mobile friendly pan and zoom framework (supports DOM and SVG).
 
 # Demo
@@ -41,15 +40,15 @@ panzoomify(element)
 ```
 
 ``` js
-// In the browser panzoom is already on the
+// In the browser panzoomify is already on the
 // window. If you are in common.js world, then 
-// var panzoom = require('panzoom')
+// var panzoomify = require('panzoomify')
 
 // grab the DOM SVG element that you want to be draggable/zoomable:
 var element = document.getElementById('scene')
 
-// and forward it it to panzoom.
-panzoom(element)
+// and forward it it to panzoomify.
+panzoomify(element)
 ```
 
 If require a dynamic behavior (e.g. you want to make an `element` not 
@@ -57,7 +56,7 @@ draggable anymore, or even completely delete an SVG element) make sure to call
 `dispose()` method:
 
 ``` js
-var instance = panzoom(element)
+var instance = panzoomify(element)
 // do work
 // ...
 // then at some point you decide you don't need this anymore:
@@ -74,7 +73,7 @@ user starts/ends dragging the `element`, the `element` will fire `panstart`/`pan
 events. Here is example of all supported events:
 
 ``` js
-var instance = panzoom(element);
+var instance = panzoomify(element);
 instance.on('panstart', function(e) {
   console.log('Fired when pan is just started ', e);
   // Note: e === instance.
@@ -111,7 +110,7 @@ can provide a custom filter, which will allow zooming only when modifier key is
 down. E.g.
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   beforeWheel: function(e) {
     // allow wheel-zoom only if altKey is down. Otherwise - ignore
     var shouldIgnore = !e.altKey;
@@ -130,7 +129,7 @@ If you want to disable panning or filter it by pressing a specific key, use the
 `beforeMouseDown()` option. E.g.
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   beforeMouseDown: function(e) {
     // allow mouse-down panning only if altKey is down. Otherwise - ignore
     var shouldIgnore = !e.altKey;
@@ -144,13 +143,13 @@ for touch initiated events.
 
 ## Ignore keyboard events
 
-By default, panzoom will listen to keyboard events, so that users can navigate the scene
+By default, panzoomify will listen to keyboard events, so that users can navigate the scene
 with arrow keys and `+`, `-` signs to zoom out. If you don't want this behavior you can
-pass the `filterKey()` predicate that returns truthy value to prevent panzoom's default
+pass the `filterKey()` predicate that returns truthy value to prevent panzoomify default
 behavior:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   filterKey: function(/* e, dx, dy, dz */) {
     // don't let panzoom handle this event:
     return true;
@@ -163,7 +162,7 @@ panzoom(element, {
 You can adjust how fast it zooms, by passing optional `zoomSpeed` argument:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   zoomSpeed: 0.065 // 6.5% per mouse wheel event
 });
 ```
@@ -175,7 +174,7 @@ two fingers. We try to match the zoom speed with pinch, but if you find
 that too slow (or fast), you can adjust it:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   pinchSpeed: 2 // zoom two times faster than the distance between fingers
 });
 ```
@@ -190,14 +189,14 @@ console.log(instance.getTransform()); // prints {scale: 1.2, x: 10, y: 10}
 
 ## Fixed transform origin when zooming
 
-By default when you use mouse wheel or pinch to zoom, `panzoom` uses mouse
+By default when you use mouse wheel or pinch to zoom, `panzoomify` uses mouse
 coordinates to determine the central point of the zooming operation.
 
 If you want to override this behavior and always zoom into `center` of the
 screen pass `transformOrigin` to the options:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   // now all zoom operations will happen based on the center of the screen
   transformOrigin: {x: 0.5, y: 0.5}
 });
@@ -214,7 +213,7 @@ let bottomRight = {x: 1, y: 1};
 let centerCenter = {x: 0.5, y: 0.5};
 
 // now let's use it:
-panzoom(element, {
+panzoomify(element, {
   transformOrigin: centerCenter
 });
 ```
@@ -222,7 +221,7 @@ panzoom(element, {
 To get or set new transform origin use the following API:
 
 ``` js
-let instance = panzoom(element, {
+let instance = panzoomify(element, {
   // now all zoom operations will happen based on the center of the screen
   transformOrigin: {x: 0.5, y: 0.5}
 });
@@ -238,7 +237,7 @@ instance.setTransformOrigin(null); // remove transform origin
 You can set min and max zoom, by passing optional `minZoom` and `maxZoom` argument:
 
 ``` js
-var instance = panzoom(element, {
+var instance = panzoomify(element, {
   maxZoom: 1,
   minZoom: 0.1
 });
@@ -256,25 +255,25 @@ assert(instance.getMinZoom() === 0.1);
 You can disable smooth scroll, by passing optional `smoothScroll` argument:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   smoothScroll: false
 });
 ```
 
 With this setting the momentum is disabled.
 
-## Pause/resume the panzoom
+## Pause/resume the panzoomify
 
-You can pause and resume the panzoom by calling the following methods:
+You can pause and resume the panzoomify by calling the following methods:
 
 ``` js
 var element = document.getElementById('scene');
-var instance = panzoom(element);
+var instance = panzoomify(element);
 
 instance.isPaused(); //  returns false
 instance.pause();    //  Pauses event handling
 instance.isPaused(); //  returns true now
-instance.resume();   //  Resume panzoom
+instance.resume();   //  Resume panzoomify
 instance.isPaused(); //  returns false again
 ```
 
@@ -285,7 +284,7 @@ You can adjust the double click zoom multiplier, by passing optional `zoomDouble
 When double clicking, zoom is multiplied by `zoomDoubleClickSpeed`, which means that a value of 1 will disable double click zoom completely. 
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   zoomDoubleClickSpeed: 1, 
 });
 ```
@@ -295,7 +294,7 @@ panzoom(element, {
 You can set the initial position and zoom, by chaining the `zoomAbs` function with x position, y position and zoom as arguments:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   maxZoom: 1,
   minZoom: 0.1,
   initialX: 300,
@@ -312,7 +311,7 @@ The library will handle `ontouch` events very aggressively, it will `preventDefa
 If you want to take care about this yourself, you can pass `onTouch` callback to the options object:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   onTouch: function(e) {
     // `e` - is current touch event.
 
@@ -327,13 +326,13 @@ Sometimes this may cause page to [bounce undesirably](https://stackoverflow.com/
 
 ## Handling double click events
 
-By default panzoom will prevent default action on double click events - this is done to avoid
+By default panzoomify will prevent default action on double click events - this is done to avoid
 accidental text selection (which is default browser action on double click). If you prefer to
 allow default action, you can pass `onDoubleClick()` callback to options. If this callback
 returns false, then the library will not prevent default action:
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   onDoubleClick: function(e) {
     // `e` - is current double click event.
 
@@ -342,14 +341,14 @@ panzoom(element, {
 });
 ```
 
-## Bounds on Panzoom
+## Bounds on panzoomify
 
 By default panzoom will not prevent Image from Panning out of the Container. `bounds` (boolean) and 
 `boundsPadding` (number)  can be defined so that it doesn't fall out. Default value for `boundsPadding` is `0.05` .
  
 
 ``` js
-panzoom(element, {
+panzoomify(element, {
   bounds: true,
   boundsPadding: 0.1
 });

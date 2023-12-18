@@ -1,6 +1,6 @@
 {
   "name": "panzoomify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extensible, mobile friendly pan and zoom framework (supports DOM and SVG).",
   "main": "index.js",
   "scripts": {
